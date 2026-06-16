@@ -1,0 +1,23 @@
+Copyright (c) 2026 Kirill Petrov. All Rights Reserved.
+
+The file in this directory (seqnucs.js) is a compiled, obfuscated distribution
+of proprietary software and is licensed, not sold.
+
+Permission is granted to use this file, unmodified, as a dependency in
+applications and internal projects, including commercial applications.
+
+The following are NOT permitted without prior written permission from the
+copyright owner:
+
+  - Modifying, decompiling, reverse-engineering, or de-obfuscating this file;
+  - Redistributing this file as a standalone library, framework, SDK,
+    component package, developer tool, or competing product;
+  - Sublicensing, selling, or otherwise transferring rights to this file.
+
+This file is provided "as is", without warranty of any kind, express or
+implied, including but not limited to the warranties of merchantability,
+fitness for a particular purpose, or non-infringement.
+
+This license applies only to the file in this `lib/` directory. The rest of
+this repository (examples, mock data, documentation) is licensed under the
+Apache License, Version 2.0 — see the LICENSE file in the repository root.

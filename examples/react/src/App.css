@@ -1,0 +1,135 @@
+/* ── Theme ──────────────────────────────────────────────────────────────────
+   Set data-applied-mode="light" or "dark" on <html> from JavaScript.
+   ─────────────────────────────────────────────────────────────────────────── */
+:root[data-applied-mode="light"] {
+    color-scheme: light;
+    --text:           #1a1a1a;
+    --background:     #f4f6f5;
+    --nucs-bg:        #ffffff;
+    --toolbar-bg:     #dde3e0;
+    --status-bg:      #e8edeb;
+    --left-bg:        #dde3e0;
+    --left-resizer:        rgb(190, 190, 190);
+    --left-resizer-active: darkgray;
+}
+
+:root[data-applied-mode="dark"] {
+    color-scheme: dark;
+    --text:           #d9d0d0;
+    --background:     #282828;
+    --nucs-bg:        #202020;
+    --toolbar-bg:     #333b38;
+    --status-bg:      #2e3330;
+    --left-bg:        #333b38;
+    --left-resizer:        rgb(80, 80, 80);
+    --left-resizer-active: rgb(110, 110, 110);
+}
+
+/* ── Layout ─────────────────────────────────────────────────────────────────
+   Adjust --left-width to change the width of the demo side panel.
+   ─────────────────────────────────────────────────────────────────────────── */
+:root {
+    --left-width:         20%;
+    --left-resizer-width: 6px;
+    --toolbar-height:     38px;
+    --status-height:      24px;
+}
+
+html, body, #root {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: Verdana, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Resizable left panel */
+.left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--left-width);
+    background: var(--left-bg);
+}
+
+.left-resizer {
+    position: absolute;
+    left: calc(var(--left-width) - var(--left-resizer-width) / 2);
+    top: 0;
+    bottom: 0;
+    width: var(--left-resizer-width);
+    background-color: var(--left-resizer);
+    cursor: col-resize;
+    z-index: 10;
+    touch-action: none;
+}
+
+.left-resizer:hover,
+.left-resizer.active {
+    background-color: var(--left-resizer-active);
+}
+
+/* Main area */
+.main {
+    position: absolute;
+    left: var(--left-width);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Toolbar */
+.toolbar {
+    height: var(--toolbar-height);
+    background: var(--toolbar-bg);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.toolbar-title {
+    font-size: 14px;
+    font-weight: bold;
+    flex: 1;
+}
+
+.toolbar button {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    border: 1px solid #888;
+    border-radius: 4px;
+    background: var(--nucs-bg);
+    color: var(--text);
+}
+
+/* SeqNucs container — the library fills this div with its canvases */
+.nucs-container {
+    flex: 1;
+    overflow-y: auto;
+    background: var(--nucs-bg);
+    position: relative;
+}
+
+/* Status bar */
+.status-bar {
+    height: var(--status-height);
+    line-height: var(--status-height);
+    padding: 0 10px;
+    font-size: 12px;
+    font-family: monospace;
+    background: var(--status-bg);
+    color: var(--text);
+    flex-shrink: 0;
+}

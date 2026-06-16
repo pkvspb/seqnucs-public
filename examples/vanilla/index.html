@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeqNucs — DNA Sequence Text Viewer</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./example.css">
+</head>
+<body>
+    <!--
+        SeqNucs requires only a single container element.
+        Size and position it with CSS — the library uses a ResizeObserver
+        to fill the container and redraws automatically on resize.
+    -->
+
+    <!-- Resizable left panel — drag the splitter to show the graph adapting -->
+    <div class="left" id="left-id"></div>
+    <div class="left-resizer" id="left-resizer-id"></div>
+
+    <!-- Main content area: toolbar, nucleotide viewer, status bar -->
+    <div class="main">
+        <div class="toolbar">
+            <span class="toolbar-title">SeqNucs</span>
+            <button id="theme-toggle-id" style="font-size: 12px"></button>
+        </div>
+
+        <!--
+            The only element the library needs: a <div> with position:relative.
+            Pass its id to initSeqNucs() — it creates the canvases inside.
+        -->
+        <div class="nucs-container" id="seqnucs-container-id"></div>
+
+        <!-- Status bar — updated via the onSelectionChanged callback -->
+        <div class="status-bar" id="seqnucs-status-id">No selection</div>
+    </div>
+
+    <script type="module" src="./example.js"></script>
+</body>
+</html>
