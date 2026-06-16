@@ -11,8 +11,8 @@ function detectSystemTheme() {
 document.documentElement.dataset.appliedMode = detectSystemTheme();
 
 export default function App() {
-    const [theme, setTheme]   = useState(detectSystemTheme);
-    const [peaks, setPeaks]   = useState(null);
+    const [theme, setTheme] = useState(detectSystemTheme);
+    const [peaks, setPeaks] = useState(null);
     const [status, setStatus] = useState('No selection');
 
     const leftResizerRef = useRef(null);
@@ -93,7 +93,10 @@ export default function App() {
             <div className="main">
                 <div className="toolbar">
                     <span className="toolbar-title">SeqNucs</span>
-                    <button onClick={toggleTheme} style={{ fontSize: '16px' }}>
+                    <button
+                        onClick={toggleTheme}
+                        style={{fontSize: "12px"}}
+                    >
                         {theme === 'dark' ? '☀️' : '🌙'}
                     </button>
                 </div>
