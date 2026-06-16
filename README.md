@@ -3,6 +3,8 @@
 Example of using the SeqNucs canvas library to display a processed DNA
 nucleotide sequence from a Sanger-style sequencing instrument.
 
+**[Live demo](https://pkvspb.github.io/seqnucs-public/examples/vanilla/index.html)**
+
 - **Per-base quality background** — each nucleotide letter is drawn on a
   color-coded background: OrangeRed (low quality, < 10), Gold (medium, < 30),
   CornflowerBlue (high, ≥ 30); IUPAC ambiguity codes use SaddleBrown
@@ -16,7 +18,7 @@ nucleotide sequence from a Sanger-style sequencing instrument.
 - **Auto-resize** — the viewer fills its container and redraws automatically
   when the container size changes (ResizeObserver)
 
-![SeqComponent demo screenshot](docs/screenshot.png)
+![SeqNucs demo screenshot](docs/screenshot.png)
 
 ## Demos
 
