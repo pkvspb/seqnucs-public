@@ -6,8 +6,9 @@ nucleotide sequence from a Sanger-style sequencing instrument.
 **[Live demo](https://pkvspb.github.io/seqnucs-public/examples/vanilla/index.html)**
 
 - **Per-base quality background** — each nucleotide letter is drawn on a
-  color-coded background: OrangeRed (low quality, < 10), Gold (medium, < 30),
-  CornflowerBlue (high, ≥ 30); IUPAC ambiguity codes use SaddleBrown
+  color-coded background keyed by quality tier (low < 10, medium < 30, high ≥ 30)
+  and a separate color for IUPAC ambiguity codes; all colors are fully
+  customisable via the `lightColors` / `darkColors` arguments
 - **Groups of 10** — bases are displayed in groups of 10 with a gap between
   groups; row-start and row-end position numbers appear in the margins
 - **Mouse drag selection** — click and drag to select a range; selected bases
@@ -96,21 +97,66 @@ const peaks = [
 ## `initSeqNucs` reference
 
 ```js
-const { redraw, unInit } = initSeqNucs(containerId, peaks, options);
+const { redraw, unInit } = initSeqNucs(
+    containerId,
+    peaks,
+    lightColors,
+    darkColors,
+    onSelectionChanged,
+);
 ```
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `containerId` | `string` | `id` of the container `<div>` |
 | `peaks` | `Array<{nuc, number, quality}>` | Sequence data |
-| `options.fontSize` | `number` | Font size in px (default `14`) |
-| `options.fontName` | `string` | Font family (default `'monospace'`) |
-| `options.onSelectionChanged` | `(lo, hi) => void` | Called whenever the selection changes; `lo`/`hi` are view-indices |
+| `lightColors` | `object` | Color palette used when the page is in light mode (see below) |
+| `darkColors` | `object` | Color palette used when the page is in dark mode (see below) |
+| `onSelectionChanged` | `(lo, hi) => void` | Called whenever the selection changes; `lo`/`hi` are view-indices |
 
 | Return value | Description |
 |--------------|-------------|
 | `redraw()` | Force a full redraw — call after changing the page theme |
 | `unInit()` | Remove all event listeners and the two canvas elements |
+
+### Color palette object
+
+Both `lightColors` and `darkColors` share the same shape. All values are CSS
+color strings (hex, `rgb()`, named colors, etc.).
+
+| Field | What it colors |
+|-------|---------------|
+| `low` | Background of bases with quality < 10 |
+| `med` | Background of bases with quality < 30 |
+| `high` | Background of bases with quality ≥ 30 |
+| `mutation` | Background of IUPAC ambiguity-code bases |
+| `text` | Nucleotide letter color |
+| `numText` | Row-margin position number color |
+| `selection` | Background of selected bases |
+
+```js
+const LIGHT_COLORS = {
+    low:       '#F8C9B9',
+    med:       '#F9E7A8',
+    high:      '#BFD7FF',
+    mutation:  '#D9BEA3',
+    text:      '#000',
+    numText:   '#555',
+    selection: '#fff',
+};
+
+const DARK_COLORS = {
+    low:       '#543100',
+    med:       '#484401',
+    high:      '#012b49',
+    mutation:  '#380101',
+    text:      '#E0E0E0',
+    numText:   '#999',
+    selection: '#6b7988',
+};
+```
+
+Set any field to any CSS color to match your application's palette.
 
 ## React wrapper pattern
 
@@ -124,8 +170,8 @@ Key file: `examples/react/src/SeqNucsComponent.jsx`. The pattern:
   effect cleanup — React calls it automatically before the next effect run and
   on unmount.
 - The `theme` dependency causes a clean re-init on every theme change, which
-  is the simplest way to apply new colors (the library re-reads
-  `data-applied-mode` from `<html>` on each draw).
+  is the simplest way to switch between the `lightColors` and `darkColors`
+  palettes passed to `initSeqNucs`.
 - The `onSelectionChanged` callback is passed as a prop and bubbled up to
   `App.jsx` to update the status bar.
 
