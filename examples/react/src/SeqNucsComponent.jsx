@@ -12,13 +12,13 @@ const LIGHT_COLORS = {
 };
 
 const DARK_COLORS = {
-    low:       '#543100',
-    med:       '#484401',
-    high:      '#012b49',
-    mutation:  '#380101',
-    text:      '#E0E0E0',
-    numText:   '#999',
-    selection: '#6b7988',
+    low:       '#471616',
+    med:       '#363419',
+    high:      '#1a2546',
+    mutation:  '#4f0154',
+    text:      '#A0A0A0',
+    numText:   '#777',
+    selection: '#5f6a77',
 };
 
 export default function SeqNucsComponent({ peaks, theme, onSelectionChanged }) {
