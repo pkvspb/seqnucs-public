@@ -132,6 +132,31 @@ Key file: `examples/react/src/SeqNucsComponent.jsx`. The pattern:
 This is the recommended approach when integrating SeqNucs into a
 component-based app.
 
+## Why Canvas instead of DOM
+
+SeqNucs renders via HTML5 Canvas rather than individual DOM elements (one
+`<span>` per nucleotide). A benchmark comparing both approaches with ~2 000
+peaks showed:
+
+| Instances on page | Canvas init | DOM init | Canvas drag | DOM drag |
+|:-----------------:|:-----------:|:--------:|:-----------:|:--------:|
+| 1 | **16.7 ms** | 25.4 ms | equal | equal |
+| 4 | **16.7 ms** | 83.7 ms | **faster** | slower |
+
+Key findings:
+
+- **Canvas init time is constant** — the draw loop over 2 000 peaks takes the
+  same ~17 ms regardless of how many instances are on the page.
+- **DOM init scales linearly** — each additional instance adds ~20 ms because
+  the browser must lay out thousands of new elements. At 4 instances the DOM
+  approach is ~5× slower.
+- **Drag/selection** — at 1 instance both approaches are equal; at 4+ the DOM
+  approach slows noticeably due to reflow pressure.
+
+Canvas also sidesteps the styling complexity of per-nucleotide quality
+backgrounds and makes physical-pixel-snapping for crisp HiDPI rendering
+straightforward.
+
 ## About the library file
 
 The file in `lib/` is a pre-built, obfuscated distribution of the SeqNucs
