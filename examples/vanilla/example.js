@@ -16,13 +16,31 @@ const peaks = names.map((nuc, i) => ({ nuc, number: i + 1, quality: qualities[i]
 let dark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
 document.documentElement.dataset.appliedMode = dark ? 'dark' : 'light';
 
+const LIGHT_COLORS = {
+    low:       '#F8C9B9',
+    med:       '#F9E7A8',
+    high:      '#BFD7FF',
+    mutation:  '#D9BEA3',
+    text:      '#000',
+    numText:   '#555',
+    selection: '#fff',
+};
+
+const DARK_COLORS = {
+    low:       '#543100',
+    med:       '#484401',
+    high:      '#012b49',
+    mutation:  '#380101',
+    text:      '#E0E0E0',
+    numText:   '#999',
+    selection: '#6b7988',
+};
+
 // ── 3. Wire up the component ──────────────────────────────────────────────────
 const statusEl = document.getElementById('seqnucs-status-id');
 
-const seqNucs = initSeqNucs('seqnucs-container-id', peaks, {
-    onSelectionChanged(lo, hi) {
-        statusEl.textContent = `Selected: ${lo + 1}–${hi + 1}  (${hi - lo + 1} positions)`;
-    },
+const seqNucs = initSeqNucs('seqnucs-container-id', peaks, LIGHT_COLORS, DARK_COLORS, (lo, hi) => {
+    statusEl.textContent = `Selected: ${lo + 1}–${hi + 1}  (${hi - lo + 1} positions)`;
 });
 
 // ── 4. Theme toggle button ────────────────────────────────────────────────────
