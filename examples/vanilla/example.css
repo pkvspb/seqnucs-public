@@ -74,6 +74,29 @@ html, body {
     background-color: var(--left-resizer-active);
 }
 
+/* Color legend — rendered into the left panel by example.js */
+.legend-title {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 10px 4px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    font-size: 12px;
+}
+
+.legend-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
 /* Main area — everything to the right of the left panel */
 .main {
     position: absolute;

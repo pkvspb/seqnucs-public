@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { initSeqNucs } from '../../../lib/seqnucs.js';
 
-const LIGHT_COLORS = {
+export const LIGHT_COLORS = {
     low:       'OrangeRed',
     med:       'Gold',
     high:      'CornflowerBlue',
@@ -11,7 +11,7 @@ const LIGHT_COLORS = {
     selection: '#fff',
 };
 
-const DARK_COLORS = {
+export const DARK_COLORS = {
     low:       'OrangeRed',
     med:       'Gold',
     high:      'CornflowerBlue',

@@ -43,17 +43,53 @@ const seqNucs = initSeqNucs('seqnucs-container-id', peaks, LIGHT_COLORS, DARK_CO
     statusEl.textContent = `Selected: ${lo + 1}–${hi + 1}  (${hi - lo + 1} positions)`;
 });
 
-// ── 4. Theme toggle button ────────────────────────────────────────────────────
+// ── 4. Color legend — left panel ───────────────────────────────────────────────
+const LEGEND_ITEMS = [
+    { key: 'low',      label: 'Low quality (Q < 10)' },
+    { key: 'med',      label: 'Medium quality (10 ≤ Q < 30)' },
+    { key: 'high',     label: 'High quality (Q ≥ 30)' },
+    { key: 'mutation', label: 'Mutation (ambiguity code)' },
+];
+
+function renderLegend(colors) {
+    const left = document.getElementById('left-id');
+    left.innerHTML = '';
+
+    const title = document.createElement('div');
+    title.className = 'legend-title';
+    title.textContent = 'Color legend';
+    left.appendChild(title);
+
+    for (const { key, label } of LEGEND_ITEMS) {
+        const item = document.createElement('div');
+        item.className = 'legend-item';
+
+        const swatch = document.createElement('span');
+        swatch.className = 'legend-swatch';
+        swatch.style.background = colors[key];
+
+        const text = document.createElement('span');
+        text.textContent = label;
+
+        item.append(swatch, text);
+        left.appendChild(item);
+    }
+}
+
+renderLegend(dark ? DARK_COLORS : LIGHT_COLORS);
+
+// ── 5. Theme toggle button ────────────────────────────────────────────────────
 const themeToggle = document.getElementById('theme-toggle-id');
 themeToggle.textContent = dark ? '☀️' : '🌙';
 themeToggle.addEventListener('click', () => {
     dark = !dark;
     themeToggle.textContent = dark ? '☀️' : '🌙';
     document.documentElement.dataset.appliedMode = dark ? 'dark' : 'light';
+    renderLegend(dark ? DARK_COLORS : LIGHT_COLORS);
     seqNucs.redraw();
 });
 
-// ── 5. Resizable left panel ───────────────────────────────────────────────────
+// ── 6. Resizable left panel ───────────────────────────────────────────────────
 // Demonstrates that the viewer adapts to its container's size: the library's
 // internal ResizeObserver picks up the new --left-width automatically.
 initLeftPanelResize('left-resizer-id');

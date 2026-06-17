@@ -1,9 +1,31 @@
 import { useEffect, useRef, useState } from 'react';
 import { getPeaksNamesAsync, getPeaksQualitiesAsync } from '../../../api/mockSeqProcessedValues.js';
-import SeqNucsComponent from './SeqNucsComponent.jsx';
+import SeqNucsComponent, { LIGHT_COLORS, DARK_COLORS } from './SeqNucsComponent.jsx';
 
 function detectSystemTheme() {
     return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+const LEGEND_ITEMS = [
+    { key: 'low',      label: 'Low quality (Q < 10)' },
+    { key: 'med',      label: 'Medium quality (10 ≤ Q < 30)' },
+    { key: 'high',     label: 'High quality (Q ≥ 30)' },
+    { key: 'mutation', label: 'Mutation (ambiguity code)' },
+];
+
+function Legend({ theme }) {
+    const colors = theme === 'dark' ? DARK_COLORS : LIGHT_COLORS;
+    return (
+        <>
+            <div className="legend-title">Color legend</div>
+            {LEGEND_ITEMS.map(({ key, label }) => (
+                <div className="legend-item" key={key}>
+                    <span className="legend-swatch" style={{ background: colors[key] }} />
+                    <span>{label}</span>
+                </div>
+            ))}
+        </>
+    );
 }
 
 // Set before the first render so SeqNucsComponent's effect (which runs
@@ -87,7 +109,9 @@ export default function App() {
 
     return (
         <>
-            <div className="left" id="left-id"></div>
+            <div className="left" id="left-id">
+                <Legend theme={theme} />
+            </div>
             <div ref={leftResizerRef} className="left-resizer"></div>
 
             <div className="main">
