@@ -7,7 +7,7 @@ export const LIGHT_COLORS = {
     high:      'CornflowerBlue',
     mutation:  'SaddleBrown',
     text:      '#000',
-    numText:   '#555',
+    numText:   '#111',
     selection: '#fff',
 };
 
@@ -17,7 +17,7 @@ export const DARK_COLORS = {
     high:      'CornflowerBlue',
     mutation:  'SaddleBrown',
     text:      '#000',
-    numText:   '#777',
+    numText:   '#aaa',
     selection: '#fff',
 };
 
