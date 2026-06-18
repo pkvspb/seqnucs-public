@@ -2,20 +2,20 @@ import { useEffect, useRef } from 'react';
 import { initSeqNucs } from '../../../lib/seqnucs.js';
 
 export const LIGHT_COLORS = {
-    low:       'OrangeRed',
-    med:       'Gold',
-    high:      'CornflowerBlue',
-    mutation:  'SaddleBrown',
+    low:       '#F8C9B9',
+    med:       '#F9E7A8',
+    high:      '#BFD7FF',
+    mutation:  '#D9BEA3',
     text:      '#000',
     numText:   '#111',
     selection: '#fff',
 };
 
 export const DARK_COLORS = {
-    low:       'OrangeRed',
-    med:       'Gold',
-    high:      'CornflowerBlue',
-    mutation:  'SaddleBrown',
+    low:       '#FF4500',   //'OrangeRed',
+    med:       '#FFD700',   //'Gold',
+    high:      '#6495ED',   //'CornflowerBlue',
+    mutation:  '#A0522D',   //'Sienna',
     text:      '#000',
     numText:   '#aaa',
     selection: '#fff',

@@ -17,20 +17,20 @@ let dark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
 document.documentElement.dataset.appliedMode = dark ? 'dark' : 'light';
 
 const LIGHT_COLORS = {
-    low:       'OrangeRed',
-    med:       'Gold',
-    high:      'CornflowerBlue',
-    mutation:  'SaddleBrown',
+    low:       '#F8C9B9',
+    med:       '#F9E7A8',
+    high:      '#BFD7FF',
+    mutation:  '#D9BEA3',
     text:      '#000',
     numText:   '#111',
     selection: '#fff',
 };
 
 const DARK_COLORS = {
-    low:       'OrangeRed',
-    med:       'Gold',
-    high:      'CornflowerBlue',
-    mutation:  'SaddleBrown',
+    low:       '#FF4500',   //'OrangeRed',
+    med:       '#FFD700',   //'Gold',
+    high:      '#6495ED',   //'CornflowerBlue',
+    mutation:  '#A0522D',   //'Sienna',
     text:      '#000',
     numText:   '#aaa',
     selection: '#fff',
