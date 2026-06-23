@@ -37,11 +37,17 @@ const DARK_COLORS = {
 };
 
 // ── 3. Wire up the component ──────────────────────────────────────────────────
+// initSeqNucs takes a single palette and draws with it as-is — theme
+// detection and switching are the caller's responsibility, not the
+// library's. Toggling theme (step 5 below) tears down and re-creates the
+// instance with the other palette rather than calling redraw().
 const statusEl = document.getElementById('seqnucs-status-id');
 
-const seqNucs = initSeqNucs('seqnucs-container-id', peaks, LIGHT_COLORS, DARK_COLORS, (lo, hi) => {
+function onSelectionChanged(lo, hi) {
     statusEl.textContent = `Selected: ${lo + 1}–${hi + 1}  (${hi - lo + 1} positions)`;
-});
+}
+
+let seqNucs = initSeqNucs('seqnucs-container-id', peaks, dark ? DARK_COLORS : LIGHT_COLORS, onSelectionChanged);
 
 // ── 4. Color legend — left panel ───────────────────────────────────────────────
 const LEGEND_ITEMS = [
@@ -86,7 +92,8 @@ themeToggle.addEventListener('click', () => {
     themeToggle.textContent = dark ? '☀️' : '🌙';
     document.documentElement.dataset.appliedMode = dark ? 'dark' : 'light';
     renderLegend(dark ? DARK_COLORS : LIGHT_COLORS);
-    seqNucs.redraw();
+    seqNucs.unInit();
+    seqNucs = initSeqNucs('seqnucs-container-id', peaks, dark ? DARK_COLORS : LIGHT_COLORS, onSelectionChanged);
 });
 
 // ── 6. Resizable left panel ───────────────────────────────────────────────────

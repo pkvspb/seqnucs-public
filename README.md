@@ -8,14 +8,15 @@ nucleotide sequence from a Sanger-style sequencing instrument.
 - **Per-base quality background** — each nucleotide letter is drawn on a
   color-coded background keyed by quality tier (low < 10, medium < 30, high ≥ 30)
   and a separate color for IUPAC ambiguity codes; all colors are fully
-  customisable via the `lightColors` / `darkColors` arguments
+  customisable via the `colors` argument
 - **Groups of 10** — bases are displayed in groups of 10 with a gap between
   groups; row-start and row-end position numbers appear in the margins
 - **Mouse drag selection** — click and drag to select a range; selected bases
   highlight with a white background
 - **Ctrl+C copy** — copies the selected nucleotide letters to the clipboard
   (no spaces, no position numbers)
-- **Light and dark theme** support via CSS custom properties
+- **Theme-agnostic** — the library draws with whatever single `colors` palette
+  it's given; light/dark detection and switching are the caller's job
 - **Auto-resize** — the viewer fills its container and redraws automatically
   when the container size changes (ResizeObserver)
 
@@ -100,8 +101,7 @@ const peaks = [
 const { redraw, unInit } = initSeqNucs(
     containerId,
     peaks,
-    lightColors,
-    darkColors,
+    colors,
     onSelectionChanged,
 );
 ```
@@ -110,19 +110,23 @@ const { redraw, unInit } = initSeqNucs(
 |-----------|------|-------------|
 | `containerId` | `string` | `id` of the container `<div>` |
 | `peaks` | `Array<{nuc, number, quality}>` | Sequence data |
-| `lightColors` | `object` | Color palette used when the page is in light mode (see below) |
-| `darkColors` | `object` | Color palette used when the page is in dark mode (see below) |
+| `colors` | `object` | Color palette to draw with (see below) — the library has no theme concept of its own |
 | `onSelectionChanged` | `(lo, hi) => void` | Called whenever the selection changes; `lo`/`hi` are view-indices |
 
 | Return value | Description |
 |--------------|-------------|
-| `redraw()` | Force a full redraw — call after changing the page theme |
+| `redraw()` | Force a full redraw with the same `colors` — e.g. after a manual layout change |
 | `unInit()` | Remove all event listeners and the two canvas elements |
+
+To switch theme, call `unInit()` and call `initSeqNucs(...)` again with a
+different `colors` object — see [React wrapper pattern](#react-wrapper-pattern)
+and `examples/vanilla/example.js` for the pattern.
 
 ### Color palette object
 
-Both `lightColors` and `darkColors` share the same shape. All values are CSS
-color strings (hex, `rgb()`, named colors, etc.).
+All values are CSS color strings (hex, `rgb()`, named colors, etc.). Build one
+object per theme you support (e.g. `LIGHT_COLORS` / `DARK_COLORS`) and pass
+whichever one is currently active.
 
 | Field | What it colors |
 |-------|---------------|
@@ -166,12 +170,13 @@ as a component rather than calling `initSeqNucs` directly from a script.
 Key file: `examples/react/src/SeqNucsComponent.jsx`. The pattern:
 
 - A `useRef` on the container `<div>`, and a `useEffect` keyed on
-  `[peaks, theme]` that calls `initSeqNucs(...)` and returns `unInit` as the
-  effect cleanup — React calls it automatically before the next effect run and
-  on unmount.
+  `[peaks, theme]` that picks `LIGHT_COLORS` or `DARK_COLORS` based on the
+  `theme` prop, calls `initSeqNucs(...)` with that single palette, and returns
+  `unInit` as the effect cleanup — React calls it automatically before the
+  next effect run and on unmount.
 - The `theme` dependency causes a clean re-init on every theme change, which
-  is the simplest way to switch between the `lightColors` and `darkColors`
-  palettes passed to `initSeqNucs`.
+  is how the palette switch happens — the library itself never sees `theme`,
+  it only ever draws with the one `colors` object it was given.
 - The `onSelectionChanged` callback is passed as a prop and bubbled up to
   `App.jsx` to update the status bar.
 

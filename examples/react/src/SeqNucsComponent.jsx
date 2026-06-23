@@ -28,7 +28,11 @@ export default function SeqNucsComponent({ peaks, theme, onSelectionChanged }) {
         const container = containerRef.current;
         if (!container) return;
 
-        const { unInit } = initSeqNucs(container.id, peaks, LIGHT_COLORS, DARK_COLORS, onSelectionChanged);
+        // initSeqNucs takes a single palette and draws with it as-is — theme
+        // detection is the caller's job, not the library's. Picking the
+        // palette here, keyed off the `theme` prop, is "outside the component".
+        const colors = theme === 'dark' ? DARK_COLORS : LIGHT_COLORS;
+        const { unInit } = initSeqNucs(container.id, peaks, colors, onSelectionChanged);
 
         return () => unInit();
         // eslint-disable-next-line react-hooks/exhaustive-deps -- peaks identity is stable; theme triggers re-init for color update
