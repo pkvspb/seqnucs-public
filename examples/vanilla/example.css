@@ -140,7 +140,8 @@ html, body {
 /* SeqNucs container — the library fills this div with its canvases */
 .nucs-container {
     flex: 1;
-    overflow-y: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
     background: var(--nucs-bg);
     position: relative;
 }
