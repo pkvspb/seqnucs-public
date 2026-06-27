@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'Fira Code';
+    src: url('./assets/FiraCode-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
 /* ── Theme ──────────────────────────────────────────────────────────────────
    Set data-applied-mode="light" or "dark" on <html> from JavaScript.
    ─────────────────────────────────────────────────────────────────────────── */
@@ -42,7 +50,7 @@ html, body {
     padding: 0;
     background: var(--background);
     color: var(--text);
-    font-family: Verdana, sans-serif;
+    font-family: 'Fira Code', monospace;
     position: relative;
     overflow: hidden;
 }
@@ -152,7 +160,7 @@ html, body {
     line-height: var(--status-height);
     padding: 0 10px;
     font-size: 12px;
-    font-family: monospace;
+    font-family: 'Fira Code', monospace;
     background: var(--status-bg);
     color: var(--text);
     flex-shrink: 0;
