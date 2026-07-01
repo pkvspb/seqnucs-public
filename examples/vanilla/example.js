@@ -51,9 +51,9 @@ let seqNucs = initSeqNucs('seqnucs-container-id', peaks, dark ? DARK_COLORS : LI
 
 // ── 4. Color legend — left panel ───────────────────────────────────────────────
 const LEGEND_ITEMS = [
-    { key: 'low',      label: 'Low quality (Q < 10)' },
-    { key: 'med',      label: 'Medium quality (10 ≤ Q < 30)' },
-    { key: 'high',     label: 'High quality (Q ≥ 30)' },
+    { key: 'low',      label: 'Low quality (Q < 8)' },
+    { key: 'med',      label: 'Medium quality (8 ≤ Q < 16)' },
+    { key: 'high',     label: 'High quality (Q ≥ 16)' },
     { key: 'mutation', label: 'Mutation (ambiguity code)' },
 ];
 

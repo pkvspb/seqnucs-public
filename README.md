@@ -6,7 +6,7 @@ nucleotide sequence from a Sanger-style sequencing instrument.
 **[Live demo](https://pkvspb.github.io/seqnucs-public/examples/vanilla/index.html)**
 
 - **Per-base quality background** — each nucleotide letter is drawn on a
-  color-coded background keyed by quality tier (low < 10, medium < 30, high ≥ 30)
+  color-coded background keyed by quality tier (low < 8, medium < 16, high ≥ 16)
   and a separate color for IUPAC ambiguity codes; all colors are fully
   customisable via the `colors` argument
 - **Groups of 10** — bases are displayed in groups of 10 with a gap between
@@ -83,7 +83,7 @@ if you want the container to scroll when there are many rows.
 ```js
 const peaks = [
     { nuc: 'A', number: 1, quality: 42 },
-    { nuc: 'C', number: 2, quality: 28 },
+    { nuc: 'C', number: 2, quality: 12 },
     { nuc: 'G', number: 3, quality:  7 },
     // ...one entry per called base
 ];
@@ -130,9 +130,9 @@ whichever one is currently active.
 
 | Field | What it colors |
 |-------|---------------|
-| `low` | Background of bases with quality < 10 |
-| `med` | Background of bases with quality < 30 |
-| `high` | Background of bases with quality ≥ 30 |
+| `low` | Background of bases with quality < 8 |
+| `med` | Background of bases with quality < 16 |
+| `high` | Background of bases with quality ≥ 16 |
 | `mutation` | Background of IUPAC ambiguity-code bases |
 | `text` | Nucleotide letter color |
 | `numText` | Row-margin position number color |
